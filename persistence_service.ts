@@ -6,7 +6,7 @@ const app = express();
 
 const port = 5002;
 
-import { UserDAO, UserDAOPG } from "./models/dao";
+import { UserDAO, UserDAOPG, UserDAOMARIA } from "./models/dao";
 
 /* Configuração para leitura de parâmetros em requisição do tipo post em form */
 app.use(bodyParser.urlencoded({extended: false}));
@@ -28,7 +28,7 @@ async function persistence_handler(req:any, res:any){
     let natureza: string = req.query.natureza;
     let descricao: string = req.query.descricao;
     let provedor: string = req.query.provedor
-    let user_dao: UserDAO = new UserDAOPG();
+    let user_dao: UserDAO = new UserDAOMARIA();
     await user_dao.insert_ticket(natureza, descricao, provedor);
     res.end("Data successfully inserted");     
 }
