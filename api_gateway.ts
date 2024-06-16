@@ -1,4 +1,6 @@
+import { UserDAOPG } from "./models/dao";
 import { SingletonLogger } from "./models/logService";
+import { Request, Response } from 'express';
 const express = require('express');
 const bodyParser = require('body-parser');
 const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -38,4 +40,4 @@ const persistence_proxy = createProxyMiddleware({
       console.log(`Listening port ${port}!`);
       logger.info(`Api_Gateway iniciada, rodando na porta ${port}!`)
 
-  } 
+  }
