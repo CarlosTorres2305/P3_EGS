@@ -1,5 +1,6 @@
 import mysql from 'mysql2/promise';
 import { Client } from 'pg';
+import { MongoClient, Db } from 'mongodb';
 
 interface UserDAO{
     insert_ticket(natureza: string, descricao: string, provedor: string ):any;
@@ -67,7 +68,36 @@ class UserDAOMARIA implements UserDAO{
     }
 }
 
+class UserDAOMongoDB implements UserDAO {
+    // Configuração do Banco
+    dbConfig = {
+        url: 'mongodb://127.0.0.1:27017',
+        dbName: 'p3'
+    };
+
+    async insert_ticket(natureza: string, descricao: string, provedor: string) {
+        const client = new MongoClient(this.dbConfig.url);
+        let data = { 'natureza': natureza, 'descricao': descricao, 'provedor': provedor };
+        console.log(data); // debug
+
+        try {
+            await client.connect();
+            console.log('Conexão com o banco realizada com sucesso');
+            
+            const database = client.db(this.dbConfig.dbName);
+            const collection = database.collection('ticket');
+            
+            const result = await collection.insertOne(data);
+            console.log('Dados inseridos com sucesso:', result.insertedId);
+        } catch (error) {
+            console.error('Erro na execução da query', error);
+        } finally {
+            await client.close();
+            console.log("Conexão com o banco finalizada");
+        }
+    }
+}
 
 export{
-    UserDAO, UserDAOPG, UserDAOMARIA
+    UserDAO, UserDAOPG, UserDAOMARIA, UserDAOMongoDB
 }
