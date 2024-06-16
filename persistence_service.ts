@@ -7,6 +7,8 @@ const app = express();
 const port = 5002;
 
 import { UserDAO, UserDAOPG, UserDAOMARIA, UserDAOMongoDB } from "./models/dao";
+import { SingletonLogger } from "./models/logService";
+const logger = SingletonLogger.getInstance();
 
 /* Configuração para leitura de parâmetros em requisição do tipo post em form */
 app.use(bodyParser.urlencoded({extended: false}));
@@ -25,6 +27,7 @@ app.listen(port, listenHandler);
 /* Persistence Service Handler */
 async function persistence_handler(req:any, res:any){ 
     console.log("Persistence service request received"); //Only for debug
+    logger.info("Requisição de serviço de persistência recebido");
     let natureza: string = req.query.natureza;
     let descricao: string = req.query.descricao;
     let provedor: string = req.query.provedor
@@ -35,13 +38,15 @@ async function persistence_handler(req:any, res:any){
             let user_dao: UserDAO = new UserDAOPG();
             await user_dao.insert_ticket(natureza, descricao, provedor);
             res.end("Data successfully inserted");
+            logger.info("Data successfully inserted");
             break;
         }
         case 'B':{
             //insere no mongoDB
             let user_dao: UserDAO = new UserDAOMongoDB();
-            await user_dao.insert_ticket(natureza, descricao, provedor)
-            res.end("Data successfully inserted")
+            await user_dao.insert_ticket(natureza, descricao, provedor);
+            res.end("Data successfully inserted");
+            logger.info("Data successfully inserted");
             break;
         }
         case 'C':{
@@ -49,10 +54,12 @@ async function persistence_handler(req:any, res:any){
             let user_dao: UserDAO = new UserDAOMARIA();
             await user_dao.insert_ticket(natureza, descricao, provedor);
             res.end("Data successfully inserted");
+            logger.info("Data successfully inserted");
             break;
         }
         default:{
-            res.end("Provedor não fornecido")
+            res.end("Provedor não fornecido");
+            logger.critical(`Chamado não aberto, Provedor não fornecido`);
             break;
         }
     }
@@ -64,4 +71,5 @@ async function persistence_handler(req:any, res:any){
 
 function listenHandler(){
     console.log(`Listening port ${port}!`);
+    logger.info(`Serviço de persistência iniciado Rodando na porta ${port}`);
 }

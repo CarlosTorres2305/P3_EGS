@@ -1,6 +1,8 @@
+import { SingletonLogger } from "./models/logService";
 const express = require('express');
 const bodyParser = require('body-parser');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const logger = SingletonLogger.getInstance()
 
 var cors = require('cors');
 const app = express();
@@ -34,4 +36,6 @@ const persistence_proxy = createProxyMiddleware({
   
   function listenHandler(){
       console.log(`Listening port ${port}!`);
+      logger.info(`Api_Gateway iniciada, rodando na porta ${port}!`)
+
   } 

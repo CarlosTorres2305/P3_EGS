@@ -1,4 +1,7 @@
-const express = require('express')
+import { SingletonLogger } from "./models/logService";
+const express = require('express');
+
+const logger = SingletonLogger.getInstance();
 
 /* component to read body requests from forms */
 const bodyParser = require('body-parser');
@@ -22,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 /* Static files directory configuration .*/
 app.use(express.static('src/public'));
 
-//app.get('/addForm', addProjectHandlerForm);
+
 
 
 app.post('/persist', persist_insert_ticket);
@@ -32,7 +35,8 @@ app.listen(port, listenHandler);
 
 /* Function to return text persistence interface */
 function persist_client_handler(req:any,res:any){
-    res.render('index.ejs'); 
+    res.render('index.ejs');
+    logger.info('Página de Abertura de chamados aberta'); 
 }
 
 async function persist_insert_ticket(req:any,res:any){
@@ -45,24 +49,32 @@ async function persist_insert_ticket(req:any,res:any){
     let url = 'http://localhost:5000/persistence?natureza='+natureza+'&descricao='+descricao+'&provedor='+provedor;
     axios.get(url)
             .then((response: AxiosResponse) => {
-                res.render('response.ejs', {service_response: response.data})
+                res.render('response.ejs', {service_response: response.data});
+                logger.info(`service response: ${JSON.stringify(response.data)}`);
                 // Handle successful response
                 console.log('Response status:', response.status);
+                logger.info(`Response status: ${JSON.stringify(response.status)}`);
                 console.log('Response data:', response.data);
+                logger.info(`Response data: ${response.data}`);
             })
             .catch((error: AxiosError) => {
                 // Handle error
                 if (error.response) {
                 // Server responded with some error status code
                 console.error('Response data:', error.response.data);
+                logger.critical(`Response data: ${error.response.data}`);
                 console.error('Response status:', error.response.status);
+                logger.critical(`Response status: ${JSON.stringify(error.response.status)}`);
                 console.error('Response headers:', error.response.headers);
+                console.error(`Response headers: ${error.response.headers}`);
                 } else if (error.request) {
                 // no response was sent
                 console.error('Request:', error.request);
+                logger.error(`Request ${error.request}`);
                 } else {
                 // Some processing error
                 console.error('Error:', error.message);
+                logger.error(`Error: ${error.message}`);
                 }
             });   
     
@@ -71,6 +83,7 @@ async function persist_insert_ticket(req:any,res:any){
 /* Tratador para inicializar a aplicação (escutar as requisições)*/
 function listenHandler(){
     console.log(`Escutando na porta ${port}!`);
+    logger.info(`Cliente_app iniciado, Rodando na porta ${port}`);
 }
 
 export{}
