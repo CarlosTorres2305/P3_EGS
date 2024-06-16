@@ -28,9 +28,38 @@ async function persistence_handler(req:any, res:any){
     let natureza: string = req.query.natureza;
     let descricao: string = req.query.descricao;
     let provedor: string = req.query.provedor
-    let user_dao: UserDAO = new UserDAOMongoDB();
+
+    switch (provedor){
+        case 'A':{
+            //insere no postgres
+            let user_dao: UserDAO = new UserDAOPG();
+            await user_dao.insert_ticket(natureza, descricao, provedor);
+            res.end("Data successfully inserted");
+            break;
+        }
+        case 'B':{
+            //insere no mongoDB
+            let user_dao: UserDAO = new UserDAOMongoDB();
+            await user_dao.insert_ticket(natureza, descricao, provedor)
+            res.end("Data successfully inserted")
+            break;
+        }
+        case 'C':{
+            //insere no mariaDB
+            let user_dao: UserDAO = new UserDAOMARIA();
+            await user_dao.insert_ticket(natureza, descricao, provedor);
+            res.end("Data successfully inserted");
+            break;
+        }
+        default:{
+            res.end("Provedor não fornecido")
+            break;
+        }
+    }
+    
+    /*let user_dao: UserDAO = new UserDAO...();
     await user_dao.insert_ticket(natureza, descricao, provedor);
-    res.end("Data successfully inserted");     
+    res.end("Data successfully inserted");*/     
 }
 
 function listenHandler(){
