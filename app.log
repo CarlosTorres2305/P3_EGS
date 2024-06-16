@@ -1,0 +1,22 @@
+2024-06-16 01:08:09-03:00 - INFO - Serviço de persistência iniciado Rodando na porta 5002
+2024-06-16 01:35:59-03:00 - INFO - Serviço de persistência iniciado Rodando na porta 5002
+2024-06-16 01:36:38-03:00 - INFO - Cliente_app iniciado, Rodando na porta 5003
+2024-06-16 01:37:02-03:00 - INFO - Api_Gateway iniciada, rodando na porta 5000!
+2024-06-16 01:37:15-03:00 - INFO - Página de Abertura de chamados aberta
+2024-06-16 01:37:18-03:00 - INFO - Requisição de serviço de persistência recebido
+2024-06-16 01:37:18-03:00 - ERROR - Chamado não aberto, pois não foi especificado o problema
+2024-06-16 01:37:18-03:00 - INFO - service response: "descrição nã pode ser em branco"
+2024-06-16 01:37:18-03:00 - INFO - Response status: 200
+2024-06-16 01:37:18-03:00 - INFO - Response data: descrição nã pode ser em branco
+2024-06-16 01:39:20-03:00 - INFO - Api_Gateway iniciada, rodando na porta 5000!
+2024-06-16 01:39:25-03:00 - INFO - Cliente_app iniciado, Rodando na porta 5003
+2024-06-16 01:39:27-03:00 - INFO - Página de Abertura de chamados aberta
+2024-06-16 01:39:30-03:00 - INFO - Serviço de persistência iniciado Rodando na porta 5002
+2024-06-16 01:39:36-03:00 - INFO - Requisição de serviço de persistência recebido
+2024-06-16 01:39:36-03:00 - INFO - Conexão com MongoDB realizada com sucesso
+2024-06-16 01:39:36-03:00 - INFO - Dados inseridos com sucesso: {"natureza":"resolucao","descricao":"testeMongoDB","provedor":"B","_id":"666e6c885339fabfbd56b51f"}
+2024-06-16 01:39:36-03:00 - INFO - Conexão com o banco MongoDB finalizada
+2024-06-16 01:39:36-03:00 - INFO - Data successfully inserted
+2024-06-16 01:39:36-03:00 - INFO - service response: "Data successfully inserted"
+2024-06-16 01:39:36-03:00 - INFO - Response status: 200
+2024-06-16 01:39:36-03:00 - INFO - Response data: Data successfully inserted
