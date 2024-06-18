@@ -15,7 +15,7 @@ class UserDAOPG implements UserDAO {
         user: 'postgres',
         host: 'localhost',
         database: 'p3',
-        password: '123',
+        password: 'root',
         port: 5432,
     };
 
@@ -67,7 +67,7 @@ class UserDAOMARIA implements UserDAO {
         user: 'root',
         host: 'localhost',
         database: 'p3',
-        password: '123',
+        password: 'root',
         port: 3306,
     };
 

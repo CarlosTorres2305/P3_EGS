@@ -4,13 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tickets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <h1>Lista de Tickets</h1>
-    <ul>
-        <% tickets.forEach(ticket => { %>
-            <li><%= ticket.natureza %> - <%= ticket.descricao %> - <%= ticket.provedor %></li>
-        <% }); %>
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Natureza</th>
+                <th>Descrição</th>
+                <th>Provedor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% tickets.forEach(ticket => { %>
+                <tr>
+                    <td><%= ticket.natureza %></td>
+                    <td><%= ticket.descricao %></td>
+                    <td><%= ticket.provedor %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
 </body>
 </html>
